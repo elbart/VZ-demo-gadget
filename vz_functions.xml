@@ -19,10 +19,10 @@ var gadgetId = __MODULE_ID__;
 gadgets.util.registerOnLoadHandler(function() {
 	gadgets.cache.getCachedJs([
 			'lib/jquery-1.4.2.min.js',
-			'advertising.js',
-			'embedding.js',
-			'invite.js',
-			'messaging.js',
+			'js/advertising.js',
+			'js/embedding.js',
+			'js/invite.js',
+			'js/messaging.js',
 			'vz_functions.js'
 		],
 		'vzDemo.controller.init');
