@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Module>
+	<ModulePrefs title="Vz-Function Gadget" author_email="teggert@studivz.net">
+		<Require feature="opensocial-0.8" />
+		<Require feature="views" />
+		<Require feature="cache" />
+		<Require feature="tabs" />
+		<Require feature="advertising" />
+		<Require feature="embed" />
+		<Require feature="invite" />
+	</ModulePrefs>
+
+
+<Content type="html" view="profile,canvas"><![CDATA[
+
+<script type="text/javascript">
+var gadgetId = __MODULE_ID__;
+
+gadgets.util.registerOnLoadHandler(function() {
+	gadgets.cache.getCachedJs([
+			'lib/jquery-1.4.2.min.js',
+			'advertising.js',
+			'embedding.js',
+			'invite.js',
+			'messaging.js',
+			'vz_functions.js'
+		],
+		'vzDemo.controller.init');
+});
+</script>
+
+<!-- The code for Profile view is here. -->
+<div id="content" style="display: none">
+	<div id="messaging">
+		<textarea id="message" rows="3">asdasd</textarea>
+		<ul>
+			<li><a id="privMessage" href="javascript:;">send private message</a></li>
+	    	<li><a id="wallpost" href="javascript:;">post to wall</a></li>
+			<li><a id="notification" href="javascript:;">send notification</a></li>
+			<li><a id="statusUpdate" href="javascript:;">send status update</a></li>
+		</ul>
+		
+	</div>
+	<div id="embedding">
+		<ul>
+			<li><a id="getEmbedUrl" href="javascript:;">get embed Url</a></li>
+		</ul>
+	</div>
+	<div id="invite">
+		<ul>
+			<li><a id="paymentInterstitial" href="javascript:;">get payment interstitial</a></li>
+			<li><a id="inviteFriends" href="javascript:;">invite friends</a></li>
+		</ul>
+	</div>
+	<div id="advertising">
+		<ul>
+			<li><a id="adTag" href="javascript:;">get ad tag</a></li>
+	    	<li><a id="paymentInterstitial" href="javascript:;">request payment interstitial</a></li>
+		</ul>	
+	</div>
+	<div id="various">
+		<input id="jsonParams" name="jsonParams" value="" />
+		<ul>
+			<li><a id="requestNavigateTo" href="javascript:;">requestNavigateTo</a></li>
+		</ul>
+	</div>
+</div>
+  ]]></Content>
+	<Content type="html" view="group,preview"><![CDATA[
+
+<h2>Installiere diesen Hingucker und beschenke deine Freunde</h2>
+
+  ]]></Content>
+<Content type="html" view="embedprovider">
+<![CDATA[
+    <input type="text" id="__MODULE_ID__img" />
+	<input type="text" id="__MODULE_ID__msg" />
+    <a href="javascript:sendMessage()">senden</a>
+
+    <script type="text/javascript">
+
+		function sendMessage()
+		{
+	        var params = {img: document.getElementById('__MODULE_ID__img').value, msg:document.getElementById('__MODULE_ID__msg').value};
+	        vz.embed.getEmbedUrl(params, function(url) {
+		    	vz.embed.send(url);
+	        });
+		}
+
+	</script>
+]]>
+</Content>
+<Content type="html" view="embed">
+<![CDATA[
+	<h1>Embedded</h1>
+	<div id="__MODULE_ID__Greeting"></div>
+	<script type="text/javascript">
+		gadgets.util.registerOnLoadHandler(function() {
+			document.getElementById('__MODULE_ID__Greeting').innerHTML = 'img: ' + gadgets.views.getParams()['img'] + '<br />msg:' + gadgets.views.getParams()['msg'];
+		});
+	</script>
+]]>
+</Content>
+</Module>
