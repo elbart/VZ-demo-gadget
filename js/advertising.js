@@ -1,3 +1,5 @@
+var vzDemo = vzDemo || {};
+
 vzDemo.advertising = {
     getAdTag : function() {
         var adCode = 112; // custom number provided by the vz-team for embedding your ad tags

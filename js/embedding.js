@@ -1,3 +1,5 @@
+var vzDemo = vzDemo || {};
+
 vzDemo.embedding = {
     getEmbedUrl : function(param) {
         // console.log(param);

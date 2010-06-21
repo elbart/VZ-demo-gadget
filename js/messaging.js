@@ -1,3 +1,5 @@
+var vzDemo = vzDemo || {};
+
 vzDemo.messaging = {
     
     sendPrivateMessage : function(text) {
