@@ -1,5 +1,5 @@
 var tabs = new gadgets.TabSet(gadgetId, 'Messaging');
-var vzDemo = {};
+var vzDemo = vzDemo || {};
 var viewer;
 var friends;
 var friendsIds = new Array();
