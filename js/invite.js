@@ -7,3 +7,11 @@ vzDemo.invite = {
         });
     }
 };
+
+vzDemo.invite.controller = {
+    bindInvite : function() {
+        $('#inviteFriends').unbind('click').bind('click', function() {
+            vzDemo.invite.inviteFriends();
+        });
+    }
+};

@@ -14,7 +14,9 @@
 <Content type="html" view="profile,canvas"><![CDATA[
 
 <script type="text/javascript">
-var gadgetId = __MODULE_ID__;
+var gadgetId = '__MODULE_ID__';
+
+var environment = '__ENV_CONTAINER__';
 
 gadgets.util.registerOnLoadHandler(function() {
 	gadgets.cache.getCachedJs([
@@ -23,6 +25,8 @@ gadgets.util.registerOnLoadHandler(function() {
 			'js/embedding.js',
 			'js/invite.js',
 			'js/messaging.js',
+            'js/iframe.js',
+            'js/various.js',
 			'vz_functions.js'
 		],
 		'vzDemo.controller.init');
@@ -64,6 +68,12 @@ gadgets.util.registerOnLoadHandler(function() {
 			<li><a id="requestNavigateTo" href="javascript:;">requestNavigateTo</a></li>
 		</ul>
 	</div>
+    <div id="iframe">
+        <iframe id="myiframe"></iframe>
+        <a id="fillIframe" href="javascript:;">fill iframe</a>
+        <p>Iframe RPC Response:</p>
+        <p id="iframe_response"></p>
+    </div>
 </div>
   ]]></Content>
 	<Content type="html" view="group,preview"><![CDATA[

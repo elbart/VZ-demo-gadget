@@ -16,3 +16,15 @@ vzDemo.advertising = {
         });
     }
 };
+
+vzDemo.advertising.controller = {
+    bindAdvertising : function() {
+        $('#adTag').unbind('click').bind('click', function() {
+            vzDemo.advertising.getAdTag();
+        });
+
+        $('#paymentInterstitial').unbind('click').bind('click', function() {
+            vzDemo.advertising.getPaymentInterstitial();
+        });
+    }
+};

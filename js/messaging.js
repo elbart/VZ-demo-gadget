@@ -54,3 +54,27 @@ vzDemo.messaging = {
         })
     }
 };
+
+vzDemo.messaging.controller = {
+    bindMessaging : function() {
+        $('#privMessage').unbind('click').bind('click', function() {
+            var text = $('#message').val();
+            vzDemo.messaging.sendPrivateMessage(text);
+        });
+
+        $('#wallpost').unbind('click').bind('click', function() {
+            var text = $('#message').val();
+            vzDemo.messaging.postToWall(text);
+        });
+  
+        $('#notification').unbind('click').bind('click', function() {
+            var text = $('#message').val();
+            vzDemo.messaging.sendNotification(text);
+        });
+
+        $('#statusUpdate').unbind('click').bind('click', function() {
+            var text = $('#message').val();
+            vzDemo.messaging.sendStatusUpdate(text);
+        });
+    }
+};
