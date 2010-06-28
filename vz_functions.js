@@ -54,6 +54,10 @@ vzDemo.controller = {
             contentContainer: document.getElementById('profile_image'),
             callback: vzDemo.profile_image.controller.bindProfileImage()
         });
+        tabs.addTab('Backend', {
+            contentContainer: document.getElementById('backend'),
+            callback: vzDemo.backend.controller.bindBackend()
+        });
         tabs.addTab('Various', {
             contentContainer: document.getElementById('various'),
             callback : vzDemo.various.controller.bindVarious

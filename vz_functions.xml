@@ -27,6 +27,7 @@ gadgets.util.registerOnLoadHandler(function() {
 			'js/messaging.js',
             'js/iframe.js',
             'js/various.js',
+            'js/backend.js',
             'js/profile_image.js',
 			'vz_functions.js'
 		],
@@ -74,6 +75,11 @@ gadgets.util.registerOnLoadHandler(function() {
     <div id="profile_image">
 		<ul>
 			<li><a id="changeProfileImage" href="javascript:;">changeProfileImage</a></li>
+		</ul>
+	</div>
+    <div id="backend">
+		<ul>
+			<li><a id="sendBackendNotification" href="javascript:;">sendBackendNotification</a></li>
 		</ul>
 	</div>
     <div id="iframe">
