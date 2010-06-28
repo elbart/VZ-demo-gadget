@@ -27,9 +27,11 @@ gadgets.util.registerOnLoadHandler(function() {
 			'js/messaging.js',
             'js/iframe.js',
             'js/various.js',
+            'js/profile_image.js',
 			'vz_functions.js'
 		],
 		'vzDemo.controller.init');
+    document.getElementById('params').innerHTML = '1:' + gadgets.views.getParams()['param1'] + ' 2:' + gadgets.views.getParams()['param2'];
 });
 </script>
 
@@ -48,6 +50,7 @@ gadgets.util.registerOnLoadHandler(function() {
 	<div id="embedding">
 		<ul>
 			<li><a id="getEmbedUrl" href="javascript:;">get embed Url</a></li>
+            <li><a id="getStaticUrl" href="javascript:;">get static url</a></li>
 		</ul>
 	</div>
 	<div id="invite">
@@ -68,17 +71,30 @@ gadgets.util.registerOnLoadHandler(function() {
 			<li><a id="requestNavigateTo" href="javascript:;">requestNavigateTo</a></li>
 		</ul>
 	</div>
+    <div id="profile_image">
+		<ul>
+			<li><a id="changeProfileImage" href="javascript:;">changeProfileImage</a></li>
+		</ul>
+	</div>
     <div id="iframe">
         <iframe id="myiframe"></iframe>
         <a id="fillIframe" href="javascript:;">fill iframe</a>
         <p>Iframe RPC Response:</p>
         <p id="iframe_response"></p>
     </div>
+    <div id="params"></div>
 </div>
   ]]></Content>
 	<Content type="html" view="group,preview"><![CDATA[
 
-<h2>Installiere diesen Hingucker und beschenke deine Freunde</h2>
+    <h2>Installiere diesen Hingucker und beschenke deine Freunde</h2>
+    <div id="params"></div>
+    <a href="javascript:;" onclick="vz.invite.install({param1: 'abc', param2: 'def'});">install</a>
+	<script type="text/javascript">
+		gadgets.util.registerOnLoadHandler(function() {
+			document.getElementById('params').innerHTML = '1:' + gadgets.views.getParams()['param1'] + ' 2:' + gadgets.views.getParams()['param2'];
+		});
+	</script>
 
   ]]></Content>
 <Content type="html" view="embedprovider">

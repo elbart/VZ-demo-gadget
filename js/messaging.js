@@ -34,6 +34,7 @@ vzDemo.messaging = {
         var params = [];
         params[opensocial.Message.Field.TITLE] = 'VZ-Demo notification!';
         params[opensocial.Message.Field.TYPE] = opensocial.Message.Type.NOTIFICATION;
+        params[opensocial.Message.Field.OPT_PARAMS] = {param1: 'abc', param2: 'def'};
 
         var message = opensocial.newMessage('', params);
         var recipient = "OWNER";

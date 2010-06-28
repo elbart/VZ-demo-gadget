@@ -13,14 +13,16 @@ vzDemo.controller = {
         var opt_params = {};
         req.add(req.newFetchPeopleRequest(viewerFriends, opt_params), 'viewerFriends');
         req.send(function(data) {
-            viewer  = data.get('viewer').getData();
-            friends = data.get('viewerFriends').getData();
+            try {
+                viewer  = data.get('viewer').getData();
+                friends = data.get('viewerFriends').getData();
 
-            friends.each(function(person) {
-                if (person.getId()) {
-                    friendsIds.push(person.getId());
-                }
-            });
+                friends.each(function(person) {
+                    if (person.getId()) {
+                        friendsIds.push(person.getId());
+                    }
+                });
+            } catch (e) {}
 
             vzDemo.controller.initTabs();
             $('#content').show();
@@ -47,6 +49,10 @@ vzDemo.controller = {
         tabs.addTab('Iframe', {
             contentContainer: document.getElementById('iframe'),
             callback : vzDemo.iframe.controller.bindIframe
+        });
+        tabs.addTab('profile image', {
+            contentContainer: document.getElementById('profile_image'),
+            callback: vzDemo.profile_image.controller.bindProfileImage()
         });
         tabs.addTab('Various', {
             contentContainer: document.getElementById('various'),
