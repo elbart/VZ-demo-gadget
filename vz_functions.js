@@ -62,6 +62,13 @@ vzDemo.controller = {
             contentContainer: document.getElementById('various'),
             callback : vzDemo.various.controller.bindVarious
         });
+        tabs.addTab('Substitutions', {
+            contentContainer: document.getElementById('substitutions'),
+            callback : vzDemo.various.controller.bindLocal
+        });
+        tabs.addTab('OS Templates', {
+            contentContainer: document.getElementById('os-template')
+        });
     }
     
 };

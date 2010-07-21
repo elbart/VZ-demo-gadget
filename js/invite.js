@@ -2,6 +2,8 @@ var vzDemo = vzDemo || {};
 
 vzDemo.invite = {
     inviteFriends : function() {
+        vz.invite.create('bal', 'blaxx\' du alter hund');
+        return;
         vz.invite.getUniqueToken(function(token) {
             vz.invite.create(token, 'blaxx\' du alter hund');
         });

@@ -39,7 +39,7 @@ vzDemo.messaging = {
         var message = opensocial.newMessage('', params);
         var recipient = "OWNER";
         opensocial.requestSendMessage(recipient, message, function(response) {
-            console.log(response.get('recipients'));
+            console.log(response);
         });
     },
     
