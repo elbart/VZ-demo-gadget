@@ -78,6 +78,7 @@ gadgets.util.registerOnLoadHandler(function() {
 		<ul>
 			<li><a id="paymentInterstitial" href="javascript:;">get payment interstitial</a></li>
 			<li><a id="inviteFriends" href="javascript:;">invite friends</a></li>
+			<li><a id="suggest" href="javascript:;">suggest gadget to friends</a></li>
 		</ul>
 	</div>
 	<div id="advertising">
