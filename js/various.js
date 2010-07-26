@@ -19,10 +19,6 @@ vzDemo.various.controller = {
         $('#prefsLang').html('lang ' + prefs.getLang());
     },
     bindVarious: function() {
-        console.log(gadgets.views.getParams());
-        var viewParams = JSON.stringify(gadgets.views.getParams()) != '{}' ? gadgets.views.getParams() : {"name" : "tim", "age" : 23, "crazystuff" : "Äöüß€ @ §&/()/%∑€®†Ω"};
-        $('#jsonParams').val(JSON.stringify(viewParams));
-        
         $('#getAndSetPrefs').bind('click', function() {
             var prefs = new gadgets.Prefs();
             var name = prefs.getString("name");
@@ -59,15 +55,35 @@ vzDemo.various.controller = {
             });
         });
 
-        
-        $('#requestNavigateTo').bind('click', function() {
-            var canvas = gadgets.views.getSupportedViews()["canvas"];
-            var params = $('#jsonParams').val();
-            gadgets.views.requestNavigateTo(canvas, params);
+        $('#preloadRequest').bind('click', function() {
+            var params = {};
+            params[gadgets.io.RequestParameters.AUTHORIZATION]=gadgets.io.AuthorizationType.SIGNED;
+
+            gadgets.io.makeRequest('http://localhost:8062/vz_demo_gadget/backend/preload.php', function(response) {
+                $('#text_output_various').html(gadgets.json.stringify(response));
+            }, params );
         });
 
-        $('#openPopup').bind('click', function() {
-            gadgets.views.requestNavigateTo('popup', null, null, {width: 800, height: 800});
+        $('#getRequest').bind('click', function() {
+            var params = {};
+            params[gadgets.io.RequestParameters.AUTHORIZATION]=gadgets.io.AuthorizationType.SIGNED;
+            params[gadgets.io.RequestParameters.METHOD]=gadgets.io.MethodType.GET;
+            params[gadgets.io.RequestParameters.REFRESH_INTERVAL]=60;
+
+            gadgets.io.makeRequest('http://localhost:8062/vz_demo_gadget/backend/getRequest.php', function(response) {
+                $('#text_output_various').html(gadgets.json.stringify(response));
+            }, params );
+        });
+
+         $('#postRequest').bind('click', function() {
+            var params = {};
+            params[gadgets.io.RequestParameters.AUTHORIZATION]=gadgets.io.AuthorizationType.SIGNED;
+            params[gadgets.io.RequestParameters.METHOD]=gadgets.io.MethodType.POST;
+            params[gadgets.io.RequestParameters.POST_DATA]=gadgets.io.encodeValues({a: 'blub', b: 'abc'});
+
+            gadgets.io.makeRequest('http://localhost:8062/vz_demo_gadget/backend/postRequest.php', function(response) {
+                $('#text_output_various').html(gadgets.json.stringify(response));
+            }, params );
         });
 
         $('#adjustHeight').bind('click', function() {
@@ -76,6 +92,14 @@ vzDemo.various.controller = {
 
         $('#setTitle').bind('click', function() {
             gadgets.window.setTitle('new title ' + vzDemo.various.getRandom(1, 99));
+        });
+
+        $('#encodeValues').bind('click', function() {
+            $('#text_output_various').html(gadgets.io.encodeValues({a: 'blub', b: 'abc'}));
+        });
+
+        $('#getProxyUrl').bind('click', function() {
+            $('#text_output_various').html(gadgets.io.getProxyUrl('http://www.google.de', {a: 'blub', b: 'abc'}));
         });
     }
 };

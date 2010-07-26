@@ -11,6 +11,12 @@ vzDemo.invite = {
     
     suggest : function() {
         vz.invite.suggest('My custom suggest title', ['OWNER']);
+    },
+
+    vcard : function() {
+        vz.vcard.update(function() {
+            console.log('callback called');
+        });
     }
 };
 
@@ -22,6 +28,10 @@ vzDemo.invite.controller = {
         
         $('#suggest').unbind('click').bind('click', function() {
             vzDemo.invite.suggest();
+        });
+
+        $('#vcard').unbind('click').bind('click', function() {
+            vzDemo.invite.vcard();
         });
     }
 };

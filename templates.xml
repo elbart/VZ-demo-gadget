@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Templates xmlns:abc="http://blablub.com/myapp">
+  <Namespace prefix="abc" url="http://blablub.com/myapp" />
+  <Style>
+    .large-font: {
+      font-size: 20px;
+    }
+  </Style>
+  <Template tag="abc:HelloWorld">
+    <div class="large-font">Hello World!</div>
+  </Template>
+  <TemplateDef tag="abc:ShowPerson">
+    <Style>
+      profile-image: {
+        padding-right: 5px;
+        width: 32px;
+        height: 32px;
+      }
+    </Style>
+    <Template>
+      <img if="${My.person.ThumbnailUrl}" src="${My.person.ThumbnailUrl}"
+          class="profile-image"/>
+      <a href="${My.person.ProfileUrl}" target="_top">${My.person.Name}</a>
+    </Template>
+  </TemplateDef>
+</Templates>

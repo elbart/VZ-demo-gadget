@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Content type="html" href="http://localhost:8062/vz_demo_gadget/backend/proxiedContent.php" view="integration" authz="signed">
+    <script xmlns:os="http://ns.opensocial.org/2008/markup" type="text/os-data">
+        <os:ViewerRequest key="Viewer" />
+    </script>
+</Content>

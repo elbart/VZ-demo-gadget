@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<Module>
+<Module xmlns:xi="http://www.w3.org/2001/XInclude">
 	<ModulePrefs title="Vz-Function Gadget" author_email="teggert@studivz.net">
 		<Require feature="opensocial-0.9" />
 		<Require feature="views" />
@@ -12,7 +12,11 @@
         <Require feature="minimessage" />
         <Require feature="settitle" />
         <Require feature="opensocial-data" />
-        <Require feature="opensocial-templates" />
+        <Require feature="opensocial-templates">
+            <Param name="requireLibrary">templates.xml</Param>
+        </Require>
+        <Require feature="osapi" />
+        <Require feature="vcard" />
 
         <Variable name="TEST1" value="abc" />
         <Variable name="TEST2" />
@@ -21,6 +25,9 @@
 
         <Locale messages="local/en_ALL.xml"/>
         <Locale lang="de" messages="local/de_ALL.xml"/>
+
+        <Preload href="http://localhost:8062/vz_demo_gadget/backend/preload.php" authz="SIGNED" views="canvas" />
+
 
 	</ModulePrefs>
     
@@ -32,6 +39,7 @@
     <os:PeopleRequest key="Viewer" userId="@viewer" groupId="@self"/>
     <os:PeopleRequest key="Owner" userId="@owner" groupId="@self"/>
     <os:PeopleRequest key="ViewerFriends" userId="@viewer" groupId="@friends"/>
+    <os:HttpRequest key="httpFriends" href="http://localhost:8062/vz_demo_gadget/backend/externalFriends.json"/>
 </script>
 <script type="text/javascript">
 var gadgetId = '__MODULE_ID__';
@@ -39,6 +47,7 @@ var gadgetId = '__MODULE_ID__';
 var environment = '__ENV_CONTAINER__';
 
 gadgets.util.registerOnLoadHandler(function() {
+    gadgets.cache.getCachedCss(['css/main.css']);
 	gadgets.cache.getCachedJs([
 			'lib/jquery-1.4.2.min.js',
 			'js/advertising.js',
@@ -49,6 +58,9 @@ gadgets.util.registerOnLoadHandler(function() {
             'js/various.js',
             'js/backend.js',
             'js/profile_image.js',
+            'js/views.js',
+            'js/opensocial.js',
+            'js/templates.js',
 			'vz_functions.js'
 		],
 		'vzDemo.controller.init');
@@ -79,6 +91,7 @@ gadgets.util.registerOnLoadHandler(function() {
 			<li><a id="paymentInterstitial" href="javascript:;">get payment interstitial</a></li>
 			<li><a id="inviteFriends" href="javascript:;">invite friends</a></li>
 			<li><a id="suggest" href="javascript:;">suggest gadget to friends</a></li>
+            <li><a id="vcard" href="javascript:;">show current vcard</a></li>
 		</ul>
 	</div>
 	<div id="advertising">
@@ -87,11 +100,24 @@ gadgets.util.registerOnLoadHandler(function() {
 	    	<li><a id="paymentInterstitial" href="javascript:;">request payment interstitial</a></li>
 		</ul>	
 	</div>
-	<div id="various">
-		<input id="jsonParams" name="jsonParams" value="" />
-		<ul>
+    <div id="views">
+        <input id="jsonParams" name="jsonParams" value="" />
+		<ul style="float:left;">
 			<li><a id="requestNavigateTo" href="javascript:;">requestNavigateTo</a></li>
+            <li><a id="requestNavigateToIntegration" href="javascript:;">requestNavigateToIntegration</a></li>
             <li><a id="openPopup" href="javascript:;">openPopup</a></li>
+            <li><a id="getViewParams" href="javascript:;">getViewParams</a></li>
+            <li><a id="getCurrentView" href="javascript:;">getCurrentView</a></li>
+            <li><a id="getSupportedViews" href="javascript:;">getSupportedViews</a></li>
+		</ul>
+        <div id="text_output">
+        </div>
+    </div>
+	<div id="various">
+		<ul style="float:left;">
+            <li><a id="preloadRequest" href="javascript:;">preloadRequest (only canvas)</a></li>
+            <li><a id="getRequest" href="javascript:;">get makeRequest</a></li>
+            <li><a id="postRequest" href="javascript:;">post makeRequest</a></li>
             <li><a id="adjustHeight" href="javascript:;">adjustHeight</a></li>
             <li><a id="createStaticMessage" href="javascript:;">createStaticMessage</a></li>
             <li><a id="dismissMessage" href="javascript:;">dismissMessage</a></li>
@@ -99,13 +125,37 @@ gadgets.util.registerOnLoadHandler(function() {
             <li><a id="createDismissibleMessage" href="javascript:;">createDismissibleMessage</a></li>
             <li><a id="getAndSetPrefs" href="javascript:;">getAndSetPrefs</a></li>
             <li><a id="setTitle" href="javascript:;">setTitle</a></li>
+            <li><a id="encodeValues" href="javascript:;">encodeValues</a></li>
+            <li><a id="getProxyUrl" href="javascript:;">getProxyUrl</a></li>
 		</ul>
+        <div id="text_output_various">
+        </div>
 	</div>
     <div id="profile_image">
 		<ul>
 			<li><a id="changeProfileImage" href="javascript:;">changeProfileImage</a></li>
 		</ul>
 	</div>
+    <div id="statetab" class="hidden" >
+      <div id="statetab_controls" class="controls">
+        <div id="statetab_toolbar" class="toolbar">&nbsp;</div>
+      </div>
+        <h2>Select a person or group of people to display</h2>
+        <p>
+          <button id="statetab-fetchviewer-button">Viewer</button>
+          <button id="statetab-fetchowner-button">Owner</button>
+          <button id="statetab-fetchviewerfriends-button">Viewer Friends</button>
+          <button id="statetab-fetchownerfriends-button">Owner Friends</button>
+          <button id="statetab-toogle-osapi">old api</button>
+        </p>
+        <p>
+          <label>Enter a user&#39;s ID: <input type="text" id="statetab-fetchbyid-input"></input></label>
+          <button id="statetab-fetchbyid-button">Person by ID</button>
+          <button id="statetab-fetchfriendsbyid-button">Friends by ID</button>
+        </p>
+        <div id="statetab-output"></div>
+    </div>
+
     <div id="backend">
 		<ul>
 			<li><a id="sendBackendNotification" href="javascript:;">sendBackendNotification</a></li>
@@ -138,20 +188,51 @@ gadgets.util.registerOnLoadHandler(function() {
             <div>Viewer Badge: <os:Badge person="${Viewer}"/></div>
             <div>Owner Badge: <os:Badge person="${Owner}"/></div>
             <div>Friends PeopleSelector: <os:PeopleSelector group="${ViewerFriends}" multiple="true" max="8" inputName="top8" /></div>
+            <os:If condition="${1 == 1}">
+              <div>this should be visible</div>
+            </os:If>
+            <os:If condition="${1 == 2}">
+              <div>this should not be visible</div>
+            </os:If>
+        </script>
+        <script type="text/os-template" xmlns:myapp="http://example.com/myapp" tag="myapp:HelloWorld">
+          <div style="color: ${My.MessageStyle.color}">Your message is: ${My.message}, color ${My.MessageStyle.color}</div>
+        </script>
+        <script type="text/os-template" xmlns:myapp="http://example.com/myapp" require="Viewer" autoUpdate="true">
+            <div>Next step is ${2 + 1}</div>
+            <div>Hello ${Viewer.displayName}</div>
+            <div>Lokal: ${Msg.title}</div>
+            <myapp:HelloWorld message="Hello World">
+                <MessageStyle color="blue"/>
+            </myapp:HelloWorld>
+            
+        </script>
+        <a href="javascript:;" id="updateViewerTemplate">updateViewerTemplate</a>
+        <script type="text/os-template" xmlns:abc="http://blablub.com/myapp" xmlns:myapp="http://example.com/myapp">
+            Here comes
+            <abc:HelloWorld />
+            <myapp:HelloWorld message="Hello World two">
+                <MessageStyle color="red"/>
+            </myapp:HelloWorld>
         </script>
         <script type="text/os-template" require="ViewerFriends">
-        <ul>
-          <li repeat="${ViewerFriends}">
-            <span>Name: ${Cur.displayName} Gender: ${Cur.gender}</span>
-          </li>
-        </ul>
-     </script>
-
-
+            <ul>
+              <li><b>Viewer Friends:</b></li>
+              <li repeat="${ViewerFriends}">
+                <span>Showing friend ${Context.Index} of ${Context.Count}:</span>
+                <span>Name: ${Cur.displayName} Gender: ${Cur.gender}</span>
+              </li>
+              <li><b>Http Friends:</b></li>
+              <li repeat="${httpFriends.result.content.httpFriends}">
+                <span>Name: ${Cur.name} Hobby: ${Cur.interests}</span>
+              </li>
+            </ul>
+        </script>
      </div>
-    <div id="params"></div>
+    <div id="params" class="bg"></div>
 </div>
   ]]></Content>
+    <include href="http://data.static.svz-pcn-107:8063/gadgets/live/000/000/000000359/integration.xml"/>
 	<Content type="html" view="group,preview"><![CDATA[
 
     <h2>Installiere diesen Hingucker und beschenke deine Freunde</h2>

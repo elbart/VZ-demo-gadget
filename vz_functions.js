@@ -6,27 +6,8 @@ var friendsIds = new Array();
 
 vzDemo.controller = {
     init : function() {
-        // load friends before anything else to do
-        var req = opensocial.newDataRequest();
-        req.add(req.newFetchPersonRequest(opensocial.IdSpec.PersonId.VIEWER), 'viewer');
-        var viewerFriends = opensocial.newIdSpec({"userId" : "OWNER", "groupId" : "FRIENDS"});
-        var opt_params = {};
-        req.add(req.newFetchPeopleRequest(viewerFriends, opt_params), 'viewerFriends');
-        req.send(function(data) {
-            try {
-                viewer  = data.get('viewer').getData();
-                friends = data.get('viewerFriends').getData();
-
-                friends.each(function(person) {
-                    if (person.getId()) {
-                        friendsIds.push(person.getId());
-                    }
-                });
-            } catch (e) {}
-
-            vzDemo.controller.initTabs();
-            $('#content').show();
-        });
+        vzDemo.controller.initTabs();
+        $('#content').show();
     },
     
     initTabs : function() {
@@ -62,12 +43,22 @@ vzDemo.controller = {
             contentContainer: document.getElementById('various'),
             callback : vzDemo.various.controller.bindVarious
         });
+        tabs.addTab('Views', {
+            contentContainer: document.getElementById('views'),
+            callback : vzDemo.views.controller.bindViews
+        });
         tabs.addTab('Substitutions', {
             contentContainer: document.getElementById('substitutions'),
             callback : vzDemo.various.controller.bindLocal
         });
         tabs.addTab('OS Templates', {
-            contentContainer: document.getElementById('os-template')
+            contentContainer: document.getElementById('os-template'),
+            callback: vzDemo.templates.controller.bindTemplates
+        });
+        tabs.addTab("Data Viewer",{
+            contentContainer:document.getElementById("statetab"),
+            callback: vzDemo.opensocial.controller.bindOpenSocial,
+            tooltip:"State viewer"
         });
     }
     
