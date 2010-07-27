@@ -4,9 +4,15 @@ vzDemo.opensocial = {
     useOsapi: false,
 
     sendOsapiRequest: function(user, group, callback) {
-        osapi.people.get({userId: '@' + user.toLowerCase(), groupId: '@' + group.toLowerCase()}).execute(function(data) {
-          callback(data);
-        });
+        if (user.indexOf(':') > 0) {
+            osapi.people.get({userId: user, groupId: '@' + group.toLowerCase()}).execute(function(data) {
+              callback(data);
+            });
+        } else {
+            osapi.people.get({userId: '@' + user.toLowerCase(), groupId: '@' + group.toLowerCase()}).execute(function(data) {
+              callback(data);
+            });
+        }
 
     },
 
@@ -60,6 +66,6 @@ vzDemo.opensocial.controller = {
         });
         $('#statetab-fetchfriendsbyid-button').bind('click', function() {
             vzDemo.opensocial.sendRequest($('#statetab-fetchbyid-input').val(), 'FRIENDS', vzDemo.opensocial.controller.showUser);
-        })
+        });
     }
 };
