@@ -17,6 +17,7 @@
         </Require>
         <Require feature="osapi" />
         <Require feature="vcard" />
+        <Require feature="dynamic-height" />
 
         <Variable name="TEST1" value="abc" />
         <Variable name="TEST2" />
@@ -118,6 +119,8 @@ gadgets.util.registerOnLoadHandler(function() {
             <li><a id="preloadRequest" href="javascript:;">preloadRequest (only canvas)</a></li>
             <li><a id="getRequest" href="javascript:;">get makeRequest</a></li>
             <li><a id="postRequest" href="javascript:;">post makeRequest</a></li>
+            <li><a id="getRequestOsapi" href="javascript:;">get makeRequest Osapi</a></li>
+            <li><a id="postRequestOsapi" href="javascript:;">post makeRequest Osapi</a></li>
             <li><a id="adjustHeight" href="javascript:;">adjustHeight</a></li>
             <li><a id="createStaticMessage" href="javascript:;">createStaticMessage</a></li>
             <li><a id="dismissMessage" href="javascript:;">dismissMessage</a></li>
@@ -147,6 +150,7 @@ gadgets.util.registerOnLoadHandler(function() {
           <button id="statetab-fetchviewerfriends-button">Viewer Friends</button>
           <button id="statetab-fetchownerfriends-button">Owner Friends</button>
           <button id="statetab-toogle-osapi">old api</button>
+          <button id="statetab-appdata-button">appdata</button>
         </p>
         <p>
           <label>Enter a user&#39;s ID: <input type="text" id="statetab-fetchbyid-input"></input></label>
@@ -233,7 +237,9 @@ gadgets.util.registerOnLoadHandler(function() {
 </div>
   ]]></Content>
     <include href="http://data.static.svz-pcn-107:8063/gadgets/live/000/000/000000359/integration.xml"/>
-	<Content type="html" view="group,preview"><![CDATA[
+    <Content type="url" view="group" href="http://localhost:8062/vz_demo_gadget/backend/group.php?mid=__MODULE_ID__">
+    </Content>
+	<Content type="html" view="preview"><![CDATA[
 
     <h2>Installiere diesen Hingucker und beschenke deine Freunde</h2>
     <div id="params"></div>

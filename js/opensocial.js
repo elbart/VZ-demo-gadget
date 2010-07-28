@@ -16,6 +16,17 @@ vzDemo.opensocial = {
 
     },
 
+    osapiAppdata: function() {
+        osapi.newBatch().
+            add("create", osapi.appdata.update({userId: '@viewer', data: {gifts: 'a crazed monkey'}})).
+            add('get', osapi.appdata.get({ userId : '@viewer', groupId : '@self', keys: ['gifts']})).
+            add('delete', osapi.appdata.delete({keys: ['gifts']})).
+        execute(function(result) {
+          console.log(result);
+        });
+
+    },
+
     sendRequest: function(user, group, callback) {
 
         if (vzDemo.opensocial.useOsapi) {
@@ -47,6 +58,10 @@ vzDemo.opensocial.controller = {
             } else {
                 $(this).html('old api');
             }
+        });
+
+        $('#statetab-appdata-button').bind('click', function() {
+            vzDemo.opensocial.osapiAppdata();
         });
 
         $('#statetab-fetchviewer-button').bind('click', function() {

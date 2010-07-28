@@ -13,8 +13,8 @@ vzDemo.views = {
 };
 
 vzDemo.views.controller = {
-    bindVarious: function() {
-        console.log(gadgets.views.getParams());
+    bindViews: function() {
+
         var viewParams = JSON.stringify(gadgets.views.getParams()) != '{}' ? gadgets.views.getParams() : {"name" : "tim", "age" : 23, "crazystuff" : "Äöüß€ @ §&/()/%∑€®†Ω"};
         $('#jsonParams').val(JSON.stringify(viewParams));
 

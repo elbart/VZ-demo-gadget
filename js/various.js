@@ -86,6 +86,27 @@ vzDemo.various.controller = {
             }, params );
         });
 
+        $('#getRequestOsapi').bind('click', function() {
+            osapi.http.get({
+                'href' : 'http://localhost:8062/vz_demo_gadget/backend/getRequest.php',
+                'format' : 'json',
+                'authz' : 'signed'
+              }).execute(function(response) {
+                $('#text_output_various').html(gadgets.json.stringify(response));
+            });
+        });
+
+         $('#postRequestOsapi').bind('click', function() {
+            osapi.http.post({
+                'href' : 'http://localhost:8062/vz_demo_gadget/backend/postRequest.php',
+                'format' : 'json',
+                'authz' : 'signed',
+                'body' : gadgets.io.encodeValues({a: 'blub', b: 'abc'})
+              }).execute(function(response) {
+                $('#text_output_various').html(gadgets.json.stringify(response));
+            });
+        });
+
         $('#adjustHeight').bind('click', function() {
            gadgets.window.adjustHeight(800);
         });
