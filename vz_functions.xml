@@ -118,6 +118,7 @@ gadgets.util.registerOnLoadHandler(function() {
 		<ul style="float:left;">
             <li><a id="preloadRequest" href="javascript:;">preloadRequest (only canvas)</a></li>
             <li><a id="getRequest" href="javascript:;">get makeRequest</a></li>
+            <li><a id="getRequestUnsigned" href="javascript:;">get makeRequest - unsigned</a></li>
             <li><a id="postRequest" href="javascript:;">post makeRequest</a></li>
             <li><a id="getRequestOsapi" href="javascript:;">get makeRequest Osapi</a></li>
             <li><a id="postRequestOsapi" href="javascript:;">post makeRequest Osapi</a></li>
@@ -236,7 +237,7 @@ gadgets.util.registerOnLoadHandler(function() {
     <div id="params" class="bg"></div>
 </div>
   ]]></Content>
-    <include href="http://data.static.svz-pcn-107:8063/gadgets/live/000/000/000000359/integration.xml"/>
+     <xi:include href="http://data.static.svz-pcn-107:8063/gadgets/live/000/000/000000359/integration.xml"/>
     <Content type="url" view="group" href="http://localhost:8062/vz_demo_gadget/backend/group.php?mid=__MODULE_ID__">
     </Content>
 	<Content type="html" view="preview"><![CDATA[

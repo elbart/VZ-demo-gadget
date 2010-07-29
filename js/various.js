@@ -75,6 +75,16 @@ vzDemo.various.controller = {
             }, params );
         });
 
+        $('#getRequestUnsigned').bind('click', function() {
+            var params = {};
+            params[gadgets.io.RequestParameters.METHOD]=gadgets.io.MethodType.GET;
+            params[gadgets.io.RequestParameters.REFRESH_INTERVAL]=60;
+
+            gadgets.io.makeRequest('http://localhost:8062/vz_demo_gadget/backend/getRequest.php', function(response) {
+                $('#text_output_various').html(gadgets.json.stringify(response));
+            }, params );
+        });
+
          $('#postRequest').bind('click', function() {
             var params = {};
             params[gadgets.io.RequestParameters.AUTHORIZATION]=gadgets.io.AuthorizationType.SIGNED;
