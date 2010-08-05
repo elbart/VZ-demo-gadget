@@ -29,12 +29,19 @@
 
         <Preload href="http://localhost:8062/vz_demo_gadget/backend/preload.php" authz="SIGNED" views="canvas" />
 
+        <OAuth>
+          <Service name="MyTwitter">
+            <Request url="https://api.twitter.com/oauth/request_token" />
+            <Access url="https://api.twitter.com/oauth/access_token" />
+            <Authorization url="https://api.twitter.com/oauth/authorize" />
+          </Service>
+        </OAuth>
 
 	</ModulePrefs>
     
     <UserPref name="name" datatype="string" default_value="old name" />
 
-
+<Content type="html" view="canvas">header</Content>
 <Content type="html" view="profile,canvas,popup"><![CDATA[
 <script xmlns:os="http://ns.opensocial.org/2008/markup" type="text/os-data">
     <os:PeopleRequest key="Viewer" userId="@viewer" groupId="@self"/>
@@ -131,6 +138,7 @@ gadgets.util.registerOnLoadHandler(function() {
             <li><a id="setTitle" href="javascript:;">setTitle</a></li>
             <li><a id="encodeValues" href="javascript:;">encodeValues</a></li>
             <li><a id="getProxyUrl" href="javascript:;">getProxyUrl</a></li>
+            <li><a id="oauthRequest" href="javascript:;">oauthRequest</a></li>
 		</ul>
         <div id="text_output_various">
         </div>
@@ -237,8 +245,8 @@ gadgets.util.registerOnLoadHandler(function() {
     <div id="params" class="bg"></div>
 </div>
   ]]></Content>
-     <xi:include href="http://data.static.svz-pcn-107:8063/gadgets/live/000/000/000000359/integration.xml"/>
-    <Content type="url" view="group" href="http://localhost:8062/vz_demo_gadget/backend/group.php?mid=__MODULE_ID__">
+     <xi:include href="integration.xml"/>
+    <Content type="url" view="group" href="http://localhost:8062/vz_demo_gadget/backend/group.php?mid=__MODULE_ID__" authz="signed">
     </Content>
 	<Content type="html" view="preview"><![CDATA[
 

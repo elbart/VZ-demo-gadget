@@ -20,7 +20,7 @@ vzDemo.opensocial = {
         osapi.newBatch().
             add("create", osapi.appdata.update({userId: '@viewer', data: {gifts: 'a crazed monkey'}})).
             add('get', osapi.appdata.get({ userId : '@viewer', groupId : '@self', keys: ['gifts']})).
-            add('delete', osapi.appdata.delete({keys: ['gifts']})).
+            add('delete', osapi.appdata.del({keys: ['gifts']})).
         execute(function(result) {
           console.log(result);
         });

@@ -2,8 +2,8 @@
     "key_resource_img": {
         "type": "image",
         "content": {
-            "src": "url to image",
-            "href": "link for image",
+            "src": "http://studi.ohmydollz.com/nx.jpg",
+            "href": "http://study.ohmydollz.com",
             "title": "title for image link"
         }
     },
@@ -22,7 +22,7 @@
     "key_resource_rich": {
         "type": "rich",
         "content": {
-            "href": "http://www.google.de/images"
+            "href": "http://www.google.de/images?hl=de&source=imghp&q=martinique"
         }
     }
 }

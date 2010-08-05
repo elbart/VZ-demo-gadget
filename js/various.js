@@ -96,6 +96,14 @@ vzDemo.various.controller = {
             }, params );
         });
 
+        $('#oauthRequest').bind('click', function() {
+           var params = {};
+           params[gadgets.io.RequestParameters.AUTHORIZATION]=gadgets.io.AuthorizationType.OAUTH;
+           params[gadgets.io.RequestParameters.OAUTH_SERVICE_NAME]='MyTwitter';
+           gadgets.io.makeRequest('http://api.twitter.com/1/statuses/home_timeline.json', function(response) {
+               $('#text_output_various').html(gadgets.json.stringify(response));
+            }, params );
+        });
         $('#getRequestOsapi').bind('click', function() {
             osapi.http.get({
                 'href' : 'http://localhost:8062/vz_demo_gadget/backend/getRequest.php',
