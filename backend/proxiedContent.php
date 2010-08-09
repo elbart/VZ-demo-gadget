@@ -59,3 +59,5 @@ $postBody = json_decode(file_get_contents('php://input'), true);
       </li>
     </ul>
 </script>
+
+<a href="javascript:gadgets.window.adjustHeight(1500);">adjustHeight</a>
