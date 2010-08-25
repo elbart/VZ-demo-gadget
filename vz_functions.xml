@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="iso-8859-1" ?>
 <Module xmlns:xi="http://www.w3.org/2001/XInclude">
 	<ModulePrefs title="Vz-Function Gadget" author_email="teggert@studivz.net">
 		<Require feature="opensocial-0.9" />
@@ -37,11 +37,13 @@
           </Service>
         </OAuth>
 
+        <AllowedDomain name="localhost" />
+
 	</ModulePrefs>
     
     <UserPref name="name" datatype="string" default_value="old name" />
 
-<Content type="html" view="canvas">header</Content>
+<Content type="html" view="canvas">älöääheader</Content>
 <Content type="html" view="profile,canvas,popup"><![CDATA[
 <script xmlns:os="http://ns.opensocial.org/2008/markup" type="text/os-data">
     <os:PeopleRequest key="Viewer" userId="@viewer" groupId="@self"/>
@@ -245,7 +247,13 @@ gadgets.util.registerOnLoadHandler(function() {
     <div id="params" class="bg"></div>
 </div>
   ]]></Content>
-     <xi:include href="integration.xml"/>
+    
+    <Content type="html" href="http://localhost:8062/vz_demo_gadget/backend/proxiedContent.php" view="integration" authz="signed">
+    <script xmlns:os="http://ns.opensocial.org/2008/markup" type="text/os-data">
+        <os:ViewerRequest key="Viewer" />
+    </script>
+    </Content>
+    
     <Content type="url" view="group" href="http://localhost:8062/vz_demo_gadget/backend/group.php?mid=__MODULE_ID__" authz="signed">
     </Content>
 	<Content type="html" view="preview"><![CDATA[

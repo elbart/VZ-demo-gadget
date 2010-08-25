@@ -38,6 +38,10 @@ vzDemo.opensocial = {
         var idSpec = opensocial.newIdSpec({"userId" : user, "groupId" : group});
         var opt_params = {};
         req.add(req.newFetchPeopleRequest(idSpec, opt_params), 'requestId');
+        var params = {};
+        params[opensocial.DataRequest.PeopleRequestFields.PROFILE_DETAILS ] = ['profileUrl', 'photos', 'birthday', 'gender'];
+        params[opensocial.DataRequest.PeopleRequestFields.MAX] = 250;
+        req.add(req.newFetchPeopleRequest(opensocial.newIdSpec({"userId" : "VIEWER", "groupId" : "ALL"}), params),'users');
         req.send(function(data) {
             callback(data.get('requestId').getData());
         });
