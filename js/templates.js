@@ -12,6 +12,7 @@ vzDemo.templates.controller = {
             };
             console.log(newUser);
             opensocial.data.DataContext.putDataSet("Viewer", newUser);
+            opensocial.data.DataContext.putDataSet( "fruit", "Pineapple" );
         });
     }
 };

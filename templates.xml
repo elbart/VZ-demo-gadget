@@ -9,6 +9,9 @@
   <Template tag="abc:HelloWorld">
     <div class="large-font">Hello World!</div>
   </Template>
+  <Template tag="abc:fruit">
+       <h3>Fruit: <span>${fruit}</span></h3>
+   </Template>
   <TemplateDef tag="abc:ShowPerson">
     <Style>
       profile-image: {

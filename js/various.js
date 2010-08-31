@@ -75,14 +75,61 @@ vzDemo.various.controller = {
             }, params );
         });
 
-        $('#getRequestUnsigned').bind('click', function() {
+        $('#domRequest').bind('click', function() {
             var params = {};
+            params[gadgets.io.RequestParameters.AUTHORIZATION]=gadgets.io.AuthorizationType.SIGNED;
             params[gadgets.io.RequestParameters.METHOD]=gadgets.io.MethodType.GET;
             params[gadgets.io.RequestParameters.REFRESH_INTERVAL]=60;
+            params[gadgets.io.RequestParameters.CONTENT_TYPE] = gadgets.io.ContentType.DOM;
 
+
+            gadgets.io.makeRequest('http://localhost:8062/vz_demo_gadget/backend/domRequest.php', function(response) {
+                console.log(response);
+                var r = gadgets.json.stringify(response);
+                $('#text_output_various').html(r);
+            }, params );
+        });
+        
+        $('#feedRequest').bind('click', function() {
+            var params = {};
+            params[gadgets.io.RequestParameters.CONTENT_TYPE] = gadgets.io.ContentType.FEED;
+
+
+            gadgets.io.makeRequest('http://localhost:8062/vz_demo_gadget/backend/feed.xml', function(response) {
+                console.log(response);
+                var r = gadgets.json.stringify(response);
+                $('#text_output_various').html(r);
+            }, params );
+        });
+
+        $('#atomRequest').bind('click', function() {
+            var params = {};
+            params[gadgets.io.RequestParameters.CONTENT_TYPE] = gadgets.io.ContentType.FEED;
+
+
+            gadgets.io.makeRequest('http://localhost:8062/vz_demo_gadget/backend/atom.xml', function(response) {
+                console.log(response);
+                var r = gadgets.json.stringify(response);
+                $('#text_output_various').html(r);
+            }, params );
+        });
+
+        $('#jsonRequest').bind('click', function() {
+            var params = {};
+            params[gadgets.io.RequestParameters.CONTENT_TYPE] = gadgets.io.ContentType.JSON;
+
+
+            gadgets.io.makeRequest('http://localhost:8062/vz_demo_gadget/backend/externalFriends.json', function(response) {
+                console.log(response);
+                var r = gadgets.json.stringify(response);
+                $('#text_output_various').html(r);
+            }, params );
+        });
+
+        $('#getRequestUnsigned').bind('click', function() {
             gadgets.io.makeRequest('http://localhost:8062/vz_demo_gadget/backend/getRequest.php', function(response) {
                 $('#text_output_various').html(gadgets.json.stringify(response));
-            }, params );
+            });
         });
 
          $('#postRequest').bind('click', function() {

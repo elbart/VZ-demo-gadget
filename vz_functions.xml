@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="iso-8859-1" ?>
+<?xml version="1.0" encoding="utf-8" ?>
 <Module xmlns:xi="http://www.w3.org/2001/XInclude">
 	<ModulePrefs title="Vz-Function Gadget" author_email="teggert@studivz.net">
 		<Require feature="opensocial-0.9" />
@@ -43,7 +43,7 @@
     
     <UserPref name="name" datatype="string" default_value="old name" />
 
-<Content type="html" view="canvas">älöääheader</Content>
+<Content type="html" view="canvas">Ã¤lÃ¶Ã¤Ã¤header</Content>
 <Content type="html" view="profile,canvas,popup"><![CDATA[
 <script xmlns:os="http://ns.opensocial.org/2008/markup" type="text/os-data">
     <os:PeopleRequest key="Viewer" userId="@viewer" groupId="@self"/>
@@ -128,6 +128,10 @@ gadgets.util.registerOnLoadHandler(function() {
             <li><a id="preloadRequest" href="javascript:;">preloadRequest (only canvas)</a></li>
             <li><a id="getRequest" href="javascript:;">get makeRequest</a></li>
             <li><a id="getRequestUnsigned" href="javascript:;">get makeRequest - unsigned</a></li>
+            <li><a id="domRequest" href="javascript:;">get request - dom</a></li>
+            <li><a id="feedRequest" href="javascript:;">get request - feed</a></li>
+            <li><a id="atomRequest" href="javascript:;">get request - atom</a></li>
+            <li><a id="jsonRequest" href="javascript:;">get request - json</a></li>
             <li><a id="postRequest" href="javascript:;">post makeRequest</a></li>
             <li><a id="getRequestOsapi" href="javascript:;">get makeRequest Osapi</a></li>
             <li><a id="postRequestOsapi" href="javascript:;">post makeRequest Osapi</a></li>
@@ -243,6 +247,13 @@ gadgets.util.registerOnLoadHandler(function() {
               </li>
             </ul>
         </script>
+
+       <script type="text/javascript">
+               opensocial.data.DataContext.putDataSet( "fruit", "Apple" );
+       </script>
+       <script type="text/os-template" xmlns:abc="http://blablub.com/myapp" xmlns:os="http://ns.opensocial.org/2008/markup" require="fruit" autoUpdate="true">
+               <abc:fruit/>
+       </script>
      </div>
     <div id="params" class="bg"></div>
 </div>
